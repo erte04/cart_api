@@ -3,6 +3,7 @@
 namespace Utils;
 
 use Exception;
+use Utils\Request;
 
 class Router
 {
@@ -33,7 +34,7 @@ class Router
         if (class_exists($controllerClass)) {
             $class = new $controllerClass;
             $classMethod = strtolower($this->reqMethod) . ucfirst($this->paths[1]);
-            $params = array_slice($this->paths, 2);      
+            $params = array_slice($this->paths, 2);
             $class->$classMethod(...$params);
         } else {
             throw new Exception("Class " . $controllerClass . " not found");

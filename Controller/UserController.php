@@ -3,15 +3,16 @@
 namespace Controller;
 
 use Utils\Controller;
+use Utils\Request;
 use Utils\Response;
 
 class UserController extends Controller
 {
     public function getUser($id)
     {
+        $request = $this->getJsonRequest();
 
-        $response = new Response(['test ' => $id], 201);
-
+        $response = new Response($request, 201);
         return $response;
     }
 }
