@@ -11,8 +11,8 @@ class UserController extends Controller
     public function getUser($id)
     {
         $request = $this->getJsonRequest();
-
-        $response = new Response($request, 201);
+        $view = $this->createView('json')->render($request);
+        $response = new Response($view, 201);
         return $response;
     }
 }

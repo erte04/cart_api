@@ -68,9 +68,5 @@ class Response
     private function setHeaders()
     {
         header("HTTP/1.1 " . $this->status . " " . $this->getStatus());
-        header("Content-Type: " . $this->contentType);
-        if ($this->contentType === 'application/json') {
-            echo json_encode($this->data);
-        }
     }
 }
