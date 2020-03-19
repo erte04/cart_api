@@ -33,7 +33,8 @@ class Router
         if (class_exists($controllerClass)) {
             $class = new $controllerClass;
             $classMethod = strtolower($this->reqMethod) . ucfirst($this->paths[1]);
-            $class->$classMethod();
+            $params = array_slice($this->paths, 2);
+            $class->$classMethod(...$params);
         } else {
             throw new Exception("Class " . $controllerClass . " not found");
         }
