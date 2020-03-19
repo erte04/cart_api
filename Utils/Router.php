@@ -33,8 +33,10 @@ class Router
         if (class_exists($controllerClass)) {
             $class = new $controllerClass;
             $classMethod = strtolower($this->reqMethod) . ucfirst($this->paths[1]);
-            $params = array_slice($this->paths, 2);
-            $class->$classMethod(...$params);
+            $params = array_slice($this->paths, 2);        
+            header('Content-type: application/json');
+            header('Access-Control-Allow-Origin: *');
+            echo json_encode($class->$classMethod(...$params));
         } else {
             throw new Exception("Class " . $controllerClass . " not found");
         }

@@ -8,6 +8,6 @@ class UserController extends Controller
 {
     public function getUser($id)
     {
-        echo 'test: '.$id;
+        return ['test ' => $id];
     }
 }
