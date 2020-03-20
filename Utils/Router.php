@@ -8,7 +8,7 @@ use Utils\Request;
 
 class Router
 {
-    private $allowMethods = ['GET', 'POST', 'DELETE', 'PATH', 'PUT'];
+    private $allowMethods = ['GET', 'POST', 'DELETE', 'PATH', 'PUT', 'OPTIONS'];
     private $paths;
     private $reqMethod;
 
@@ -20,8 +20,14 @@ class Router
             $controllerClass = "Controller\\" . ucfirst($this->paths[1]) . 'Controller';
 
             try {
-                header('Access-Control-Allow-Origin: *');
+                header('Access-Control-Allow-Origin: http://localhost:8080');
                 header("Access-Control-Allow-Credentials: true");
+                header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+                header('Access-Control-Allow-Headers: Authorization, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+                if ($this->reqMethod == 'OPTIONS') {
+                    header("HTTP/1.1 200 OK");
+                    exit;
+                }
                 $this->loadMethod($controllerClass);
             } catch (Exception $e) {
                 echo 'Message: ' . $e->getMessage();
@@ -41,7 +47,7 @@ class Router
 
             $Authentication = new Authentication;
             $UserModel = new UserModel();
-            $Authentication->login($UserModel->createUser()->getUsers());
+            // $Authentication->login($UserModel->createUser()->getUsers());
 
             $class->$classMethod(...$params);
         } else {
