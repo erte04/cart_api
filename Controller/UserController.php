@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-use Model\UserModel;
+use Model\User\UserModel;
 use Utils\Controller;
 use Utils\Response;
 

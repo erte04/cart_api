@@ -3,7 +3,7 @@
 namespace Utils;
 
 use Exception;
-use Model\UserModel;
+use Model\User\UserModel;
 use Utils\Request;
 
 class Router
