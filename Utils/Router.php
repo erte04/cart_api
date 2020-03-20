@@ -46,10 +46,10 @@ class Router
             $params = array_slice($this->paths, 2);
 
             $Authentication = new Authentication;
-            $UserModel = new UserModel();
-            // $Authentication->login($UserModel->createUser()->getUsers());
+            if ($Authentication->checkLogin() || ($controllerClass == 'Controller\UserController' && $classMethod == "postUser")) {
 
-            $class->$classMethod(...$params);
+                $class->$classMethod(...$params);
+            }
         } else {
             throw new Exception("Class " . $controllerClass . " not found");
         }

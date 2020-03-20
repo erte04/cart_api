@@ -16,7 +16,7 @@ class UserController extends Controller
         $token = $Authentication->login($request->username, $request->password);
 
         $view = $this->createView()->render($token);
-        $response = new Response($view, 200);
+        $response = new Response($view, 201);
         return $response;
     }
 }

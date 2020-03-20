@@ -32,4 +32,18 @@ class Authentication
             exit;
         }
     }
+
+    public function checkLogin()
+    {
+        $file = file_get_contents(__DIR__ . '/../Data/token.json');
+        $tokenFile = json_decode($file, true);
+        $Request = new Request;
+        $data = json_decode($Request->getRequest(), true);
+        if ($data['token'] == $tokenFile['token']) {
+            return true;
+        }
+
+        header("HTTP/1.0 401 Unauthorized");
+        return false;
+    }
 }
