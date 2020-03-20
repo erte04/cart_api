@@ -3,6 +3,7 @@
 namespace Controller;
 
 use Model\User\UserModel;
+use Utils\Authentication;
 use Utils\Controller;
 use Utils\Response;
 
@@ -10,11 +11,12 @@ class UserController extends Controller
 {
     public function postUser()
     {
-        // $request = $this->getJsonRequest();
-        $User = new UserModel();
-        $view = $this->createView('json')->render($User->createUser()->getUsers());
+        $request = $this->getJsonRequest();
+        $Authentication = new Authentication;
+        $token = $Authentication->login($request->username, $request->password);
 
-        $response = new Response($view, 201);
+        $view = $this->createView()->render($token);
+        $response = new Response($view, 200);
         return $response;
     }
 }

@@ -2,21 +2,25 @@
 
 namespace Utils;
 
+use Model\User\UserModel;
+
 class Authentication
 {
-    public function login($Users)
+    public function login($username, $password)
     {
         $LoginSuccessful = false;
+        $User = new UserModel();
+        $Users = $User->createUser()->getUsers();
 
-        if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
-
-            $Username = $_SERVER['PHP_AUTH_USER'];
-            $Password = $_SERVER['PHP_AUTH_PW'];
-
-            foreach ($Users as $User) {
-                if ($Username == $User['username'] && $Password == $User['password']) {
-                    $LoginSuccessful = true;
-                }
+        foreach ($Users as $User) {
+            if ($username == $User['username'] && $password == $User['password']) {
+                $token = sha1(mt_rand(1, 90000) . 'SALT');;
+                $refreshToken = sha1(mt_rand(1, 90000) . 'SALT');
+                $jsonToken = json_encode(['token' => $token, 'refresh_token' => $refreshToken]);
+                $file = fopen(__DIR__ . '/../Data/token.json', 'w');
+                fwrite($file, $jsonToken);
+                fclose($file);
+                return ['token' => $token, 'refresh_token' => $refreshToken];
             }
         }
 
