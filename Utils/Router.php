@@ -20,6 +20,8 @@ class Router
             $controllerClass = "Controller\\" . ucfirst($this->paths[1]) . 'Controller';
 
             try {
+                header('Access-Control-Allow-Origin: *');
+                header("Access-Control-Allow-Credentials: true");
                 $this->loadMethod($controllerClass);
             } catch (Exception $e) {
                 echo 'Message: ' . $e->getMessage();

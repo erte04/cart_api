@@ -69,8 +69,6 @@ class Response
     private function setHeaders()
     {
         header("HTTP/1.1 " . $this->status . " " . $this->getStatus());
-        header('Access-Control-Allow-Origin: *');
-        header("Access-Control-Allow-Credentials: true");
         echo $this->data;
     }
 }
