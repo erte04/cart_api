@@ -3,6 +3,7 @@
 namespace Utils;
 
 use Exception;
+use Model\UserModel;
 use Utils\Request;
 
 class Router
@@ -35,6 +36,11 @@ class Router
             $class = new $controllerClass;
             $classMethod = strtolower($this->reqMethod) . ucfirst($this->paths[1]);
             $params = array_slice($this->paths, 2);
+
+            $Authentication = new Authentication;
+            $UserModel = new UserModel();
+            $Authentication->login($UserModel->createUser()->getUsers());
+
             $class->$classMethod(...$params);
         } else {
             throw new Exception("Class " . $controllerClass . " not found");

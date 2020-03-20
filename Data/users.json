@@ -1,4 +1,6 @@
-{
+[
+  {
     "username": "developer",
     "password": "secret"
-}
+  }
+]
