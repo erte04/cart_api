@@ -12,6 +12,7 @@ class Response
 
     public function __construct($data, $status = 200, $contentType = 'application/json')
     {
+
         $this->status = $status;
         $this->contentType = $contentType;
         $this->data = $data;
@@ -68,5 +69,8 @@ class Response
     private function setHeaders()
     {
         header("HTTP/1.1 " . $this->status . " " . $this->getStatus());
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Credentials: true");
+        echo $this->data;
     }
 }
