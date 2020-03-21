@@ -2,6 +2,7 @@
 
 namespace Utils;
 
+use Config;
 use Exception;
 use Model\User\UserModel;
 use Utils\Request;
@@ -20,7 +21,9 @@ class Router
             $controllerClass = "Controller\\" . ucfirst($this->paths[1]) . 'Controller';
 
             try {
-                header('Access-Control-Allow-Origin: http://localhost:8080');
+
+                $Config = new Config;
+                header('Access-Control-Allow-Origin: ' . $Config::webUrl);
                 header("Access-Control-Allow-Credentials: true");
                 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
                 header('Access-Control-Allow-Headers: Authorization, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
